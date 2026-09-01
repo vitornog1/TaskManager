@@ -70,3 +70,16 @@ Não foram considerados agentes autônomos ou processos complexos de automação
 O uso da IA contribuiu como apoio ao desenvolvimento e à documentação do TaskManager, especialmente nas etapas de implementação, testes, resolução de problemas, versionamento e organização da entrega.
 
 A responsabilidade pela implementação, decisões tomadas e validação final do projeto permaneceu com o estudante.
+
+## 9. Exemplos de utilização
+
+Durante o desenvolvimento do projeto, a IA foi utilizada como apoio em situações práticas, como:
+
+- Orientação para configuração e execução da API em ambiente Docker;
+- Identificação do problema relacionado à porta 8080 já estar em uso;
+- Análise do erro do SQLite relacionado à ausência da tabela `Tarefas` no ambiente do container;
+- Orientação para execução e validação dos testes automatizados com `dotnet test`;
+- Apoio na organização da documentação técnica e das evidências da entrega;
+- Orientação para utilização de branches, commits, push e Pull Request no GitHub.
+
+Todas as sugestões foram verificadas por mim, Vítor Nogueira,  por meio da execução dos comandos, análise dos resultados e validação do comportamento do projeto.
