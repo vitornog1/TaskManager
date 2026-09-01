@@ -1,0 +1,9 @@
+.git
+.gitignore
+.vscode
+bin
+obj
+coverage-report
+TestResults
+README.md
+TaskManager.Tests

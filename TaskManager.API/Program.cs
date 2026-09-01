@@ -16,6 +16,13 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+// Aplicar as migrations do banco de dados automaticamente
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
 // Configuração do pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
