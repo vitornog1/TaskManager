@@ -187,7 +187,8 @@ POST	/api/tarefas	Cria uma nova tarefa
 PUT	/api/tarefas/{id}	Atualiza uma tarefa
 PATCH	/api/tarefas/{id}/concluir	Marca uma tarefa como concluída
 DELETE	/api/tarefas/{id}	Exclui uma tarefa
-13. Arquitetura e decisões técnicas
+
+## 13. Arquitetura e decisões técnicas
 
 A aplicação foi estruturada utilizando ASP.NET Core Web API.
 
@@ -202,9 +203,31 @@ Utilização do SQLite como banco de dados;
 Utilização do xUnit para testes automatizados;
 Utilização do Docker para padronização do ambiente de execução.
 
+### Fluxo da aplicação
+
+```text
+Cliente
+   │
+   ▼
+API REST
+ASP.NET Core
+   │
+   ▼
+TarefasController
+   │
+   ▼
+Entity Framework Core
+   │
+   ▼
+Banco SQLite
+   │
+   ▼
+Dados das tarefas
+```
 A especificação técnica detalhada encontra-se no arquivo:
 
 docs/SDD.md
+
 14. Uso de Inteligência Artificial
 
 A Inteligência Artificial foi utilizada como ferramenta de apoio durante o desenvolvimento do projeto.
@@ -247,20 +270,20 @@ Por se tratar de um projeto individual, o fluxo de desenvolvimento foi adaptado 
 
 A entrega foi desenvolvida em uma branch específica:
 
-feature/documentacao-entrega-1
+feature/entrega-2
 
 O fluxo utilizado foi:
 
 main
   │
-  └── feature/documentacao-entrega-1
+  └── feature/entrega-2
               │
               ├── alterações
               ├── commit
               └── push
                     │
                     ▼
-              Pull Request
+              Pull Request #2
                     │
                     ▼
               merge → main
@@ -280,11 +303,12 @@ Mesmo em um contexto individual, foram utilizados:
 Branch específica para desenvolvimento;
 Commits;
 Pull Request;
-Revisão das alterações;
+Validação das alterações;
 Integração com a branch main;
 Testes automatizados;
 Documentação técnica;
 Registro de evidências.
+
 18. Documentação
 
 A documentação complementar do projeto está disponível no diretório docs/:
@@ -324,6 +348,7 @@ Evidências de execução;
 Versionamento com Git e GitHub;
 Branch específica para a entrega;
 Pull Request integrado à branch main.
+
 20. Observações
 
 O projeto possui finalidade acadêmica e foi desenvolvido individualmente.
@@ -331,3 +356,75 @@ O projeto possui finalidade acadêmica e foi desenvolvido individualmente.
 O uso de Inteligência Artificial ocorreu como ferramenta de apoio, permanecendo com o estudante a responsabilidade pela implementação, análise das sugestões, decisões técnicas e validação final da aplicação.
 
 Durante algumas execuções foram apresentados avisos relacionados à vulnerabilidade conhecida do pacote Microsoft.OpenApi versão 2.0.0. Esses avisos não impediram a compilação do projeto nem a execução e aprovação dos testes automatizados.
+
+## 21. Entrega 2 — Refinamento e documentação
+
+Na Entrega 2, o projeto passou por uma etapa de refinamento, validação e organização da documentação técnica.
+
+### Refinamento e validação
+
+Foram realizados testes e validações da aplicação, incluindo a execução da suíte de testes automatizados e a execução da API em ambiente Docker.
+
+Durante a validação foram identificados e corrigidos problemas relacionados ao ambiente de execução e ao envio de requisições.
+
+O problema relacionado ao banco SQLite no ambiente Docker foi corrigido com a aplicação automática das migrations do Entity Framework Core durante a inicialização da aplicação.
+
+Também foi corrigido um problema no envio de uma requisição POST pelo PowerShell, passando a utilizar a conversão do conteúdo para JSON e o envio em UTF-8.
+
+Os problemas identificados e as respectivas correções estão registrados em:
+
+docs/ERROS_E_REESPECIFICACAO.md
+
+### Decisões arquiteturais
+
+Foram registrados os principais motivos e trade-offs das escolhas técnicas utilizadas no projeto por meio de ADRs:
+
+docs/ADR/ADR-001-api-rest.md
+
+docs/ADR/ADR-002-sqlite-ef-core.md
+
+docs/ADR/ADR-003-docker.md
+
+### Relato de experiência
+
+Foi elaborado um relato de experiência sobre o desenvolvimento individual do projeto, abordando os principais aprendizados, desafios e soluções encontradas durante o desenvolvimento.
+
+O documento está disponível em:
+
+docs/RELATO_DE_EXPERIENCIA.md
+
+### Análise do uso de Inteligência Artificial
+
+Foi elaborada uma análise comparativa das ferramentas de Inteligência Artificial relacionadas ao desenvolvimento de software.
+
+A ferramenta efetivamente utilizada como apoio no desenvolvimento do TaskManager foi o ChatGPT. Claude Code, Codex CLI, Cursor e Antigravity foram apresentados apenas para comparação, não tendo sido utilizados diretamente na implementação do projeto.
+
+A análise também aborda os riscos de alucinação, geração de código inseguro ou destrutivo, privacidade, confidencialidade, propriedade intelectual e a necessidade de revisão e homologação humana.
+
+O documento está disponível em:
+
+docs/ANALISE_IA.md
+
+### Governança e versionamento
+
+A Entrega 2 foi desenvolvida utilizando uma branch específica:
+
+feature/entrega-2
+
+Após as alterações e validações, foi realizado o Pull Request #2 para a branch main.
+
+O Pull Request foi aprovado e integrado à branch main, mantendo o histórico das alterações registrado no GitHub.
+
+### Resultado da Entrega 2
+
+Ao final da Entrega 2, o projeto possui:
+
+- Testes automatizados aprovados;
+- Correções dos problemas identificados durante a validação;
+- Processo de reespecificação documentado;
+- ADRs registrados;
+- Relato de experiência;
+- Análise crítica do uso de Inteligência Artificial;
+- Alterações organizadas em branch específica;
+- Pull Request registrado no GitHub;
+- Integração da Entrega 2 à branch main.
