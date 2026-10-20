@@ -17,6 +17,16 @@ Desenvolver uma aplicação backend simples aplicando conceitos de:
 - Controle de versão com Git e GitHub;
 - Organização e documentação do desenvolvimento.
 
+## Versão e release
+
+A versão `v1.0.0` do TaskManager foi publicada no GitHub Releases.
+
+A release reúne a implementação da API REST, a persistência com SQLite, os testes automatizados e a documentação técnica do projeto.
+
+- **Versão:** `v1.0.0`
+- **Release:** https://github.com/vitornog1/TaskManager/releases/tag/v1.0.0
+- **Especificação técnica (As-Built):** [docs/SDD.md](docs/SDD.md)
+
 ## 3. Tecnologias utilizadas
 
 - C#
@@ -147,46 +157,68 @@ coverage-report/
 
 A cobertura é utilizada como evidência complementar da execução da suíte automatizada.
 
-10. Execução com Docker
+## 10. Execução com Docker
 
-A aplicação possui configuração para execução em ambiente containerizado.
+O projeto possui um `Dockerfile` e um arquivo `docker-compose.yml` para facilitar a execução da API em um ambiente containerizado.
 
-A imagem da API pode ser construída utilizando:
+### Executar com Docker Compose
 
-docker build -t taskmanager-api .
+Na pasta raiz do projeto, execute:
 
-Para executar o container:
+```powershell
+docker compose up --build
+```
 
-docker run --rm -p 8080:8080 --name taskmanager-api taskmanager-api
+Esse comando constrói a imagem e inicia o container da API, disponibilizando a aplicação na porta 8080.
 
-Caso a porta 8080 já esteja sendo utilizada por outro container, os containers em execução podem ser consultados com:
+Com a aplicação em execução, a API pode ser acessada em:
 
+```text
+http://localhost:8080
+```
+
+Para consultar as tarefas, utilize:
+
+```powershell
+Invoke-RestMethod http://localhost:8080/api/tarefas
+```
+
+Para verificar os containers em execução:
+
+```powershell
 docker ps
+```
 
-Os logs da aplicação podem ser consultados utilizando:
+Para interromper a aplicação, pressione `Ctrl+C` no terminal em que o Docker Compose está executando. Em seguida, se necessário, execute:
 
-docker logs taskmanager-api
+```powershell
+docker compose down
+```
 
-O projeto também possui um arquivo docker-compose.yml para auxiliar na configuração do ambiente.
+**Observação:** o arquivo `docker-compose.yml` declara um volume para os dados da aplicação. A persistência do banco SQLite nesse volume depende do caminho efetivamente utilizado pela conexão configurada no projeto.
 
-11. Validação da API
+## 11. Validação da API
 
 Com a aplicação em execução, os endpoints podem ser testados por meio de requisições HTTP.
 
 Exemplo de consulta:
 
+```powershell
 Invoke-RestMethod http://localhost:8080/api/tarefas
+```
 
 A API disponibiliza operações para criação, consulta, atualização, conclusão e exclusão de tarefas.
 
-12. Principais endpoints
-Método	Endpoint	Descrição
-GET	/api/tarefas	Lista todas as tarefas
-GET	/api/tarefas/{id}	Consulta uma tarefa por ID
-POST	/api/tarefas	Cria uma nova tarefa
-PUT	/api/tarefas/{id}	Atualiza uma tarefa
-PATCH	/api/tarefas/{id}/concluir	Marca uma tarefa como concluída
-DELETE	/api/tarefas/{id}	Exclui uma tarefa
+## 12. Principais endpoints
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/api/tarefas` | Lista todas as tarefas |
+| GET | `/api/tarefas/{id}` | Consulta uma tarefa por ID |
+| POST | `/api/tarefas` | Cria uma nova tarefa |
+| PUT | `/api/tarefas/{id}` | Atualiza uma tarefa |
+| PATCH | `/api/tarefas/{id}/concluir` | Marca uma tarefa como concluída |
+| DELETE | `/api/tarefas/{id}` | Exclui uma tarefa |
 
 ## 13. Arquitetura e decisões técnicas
 
@@ -355,7 +387,7 @@ O projeto possui finalidade acadêmica e foi desenvolvido individualmente.
 
 O uso de Inteligência Artificial ocorreu como ferramenta de apoio, permanecendo com o estudante a responsabilidade pela implementação, análise das sugestões, decisões técnicas e validação final da aplicação.
 
-Durante algumas execuções foram apresentados avisos relacionados à vulnerabilidade conhecida do pacote Microsoft.OpenApi versão 2.0.0. Esses avisos não impediram a compilação do projeto nem a execução e aprovação dos testes automatizados.
+Durante o refinamento do projeto, a dependência relacionada ao OpenAPI foi atualizada para corrigir o aviso de vulnerabilidade identificado na versão anterior. Após a atualização, a compilação e os testes automatizados foram executados com sucesso, com 10 testes aprovados e nenhum teste com falha ou ignorado.
 
 ## 21. Entrega 2 — Refinamento e documentação
 
