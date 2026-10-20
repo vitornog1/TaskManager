@@ -1,24 +1,29 @@
-# SDD – Especificação Técnica do TaskManager
+# SDD — Especificação Técnica do TaskManager
 
 ## 1. Identificação
 
-**Projeto:** TaskManager  
-**Tipo:** Projeto acadêmico individual  
-**Tecnologia principal:** C# / .NET 10  
-**Banco de dados:** SQLite  
-**Testes:** xUnit  
+- **Projeto:** TaskManager
+- **Tipo:** Projeto acadêmico individual
+- **Tecnologia principal:** C# / .NET 10
+- **Framework:** ASP.NET Core Web API
+- **Banco de dados:** SQLite
+- **ORM:** Entity Framework Core
+- **Testes:** xUnit
+- **Contêineres:** Docker e Docker Compose
+- **Repositório:** https://github.com/vitornog1/TaskManager
+- **Release:** [v1.0.0](https://github.com/vitornog1/TaskManager/releases/tag/v1.0.0)
 
 ## 2. Descrição do problema
 
-O TaskManager foi desenvolvido para demonstrar uma solução simples de gerenciamento de tarefas por meio de uma API REST.
+O TaskManager é uma API REST desenvolvida para demonstrar uma solução simples de gerenciamento de tarefas.
 
-O sistema permite que tarefas sejam cadastradas, consultadas, atualizadas, concluídas e excluídas.
+O sistema permite cadastrar, consultar, atualizar, concluir e excluir tarefas, utilizando persistência em banco de dados SQLite.
 
-O projeto possui escopo acadêmico e foi desenvolvido individualmente, com o objetivo de aplicar conceitos de desenvolvimento de software, persistência de dados, testes automatizados, controle de versão e documentação técnica.
+O projeto tem finalidade acadêmica e foi desenvolvido individualmente para aplicar conceitos de desenvolvimento de software, persistência de dados, testes automatizados, controle de versão, conteinerização e documentação técnica.
 
 ## 3. Objetivo
 
-Desenvolver uma API capaz de realizar as principais operações de gerenciamento de tarefas, mantendo os dados persistidos em banco de dados e garantindo o funcionamento das operações por meio de testes automatizados.
+Disponibilizar operações de gerenciamento de tarefas por meio de uma API REST, com persistência de dados e testes automatizados das principais funcionalidades.
 
 ## 4. Escopo
 
@@ -27,13 +32,14 @@ O sistema contempla:
 - Cadastro de tarefas;
 - Listagem de tarefas;
 - Consulta de tarefa por identificador;
-- Atualização de tarefas;
-- Conclusão de tarefas;
-- Exclusão de tarefas;
-- Persistência utilizando SQLite;
-- Testes automatizados das principais operações.
+- Atualização de tarefa;
+- Conclusão de tarefa;
+- Exclusão de tarefa;
+- Persistência utilizando SQLite e Entity Framework Core;
+- Testes automatizados com xUnit;
+- Execução da aplicação por meio de Docker e Docker Compose.
 
-Não fazem parte do escopo:
+Não fazem parte do escopo implementado:
 
 - Autenticação de usuários;
 - Controle de permissões;
@@ -42,218 +48,154 @@ Não fazem parte do escopo:
 - Notificações;
 - Integrações externas.
 
-Essas limitações mantêm o projeto compatível com o objetivo acadêmico da entrega.
+## 5. Requisitos funcionais
 
-## 5. Requisitos Funcionais
+### RF01 — Criar tarefa
 
-### RF01 – Criar tarefa
+Permitir o cadastro de uma tarefa informando título e descrição.
 
-O sistema deve permitir o cadastro de uma nova tarefa informando título e descrição.
+O título não pode estar vazio. Após a criação, a tarefa recebe um identificador, inicia como não concluída e registra a data de criação.
 
-### RF02 – Listar tarefas
+### RF02 — Listar tarefas
 
-O sistema deve permitir a consulta de todas as tarefas cadastradas.
+Permitir a consulta das tarefas cadastradas, ordenadas pelo identificador.
 
-### RF03 – Buscar tarefa por ID
+### RF03 — Buscar tarefa por ID
 
-O sistema deve permitir consultar uma tarefa específica utilizando seu identificador.
+Permitir consultar uma tarefa utilizando seu identificador.
 
-### RF04 – Atualizar tarefa
+### RF04 — Atualizar tarefa
 
-O sistema deve permitir alterar os dados de uma tarefa existente.
+Permitir alterar o título e a descrição de uma tarefa existente. O título não pode estar vazio.
 
-### RF05 – Concluir tarefa
+### RF05 — Concluir tarefa
 
-O sistema deve permitir alterar o estado de uma tarefa para concluída.
+Permitir marcar uma tarefa existente como concluída.
 
-### RF06 – Excluir tarefa
+### RF06 — Excluir tarefa
 
-O sistema deve permitir excluir uma tarefa existente.
+Permitir excluir uma tarefa existente.
 
-### RF07 – Tratar tarefa inexistente
+### RF07 — Tratar tarefa inexistente
 
-Quando uma tarefa solicitada não existir, a API deve retornar uma resposta HTTP 404.
+Nas operações de consulta, atualização, conclusão e exclusão, retornar HTTP 404 quando a tarefa solicitada não existir.
 
-## 6. Requisitos Não Funcionais
+## 6. Requisitos não funcionais
 
-### RNF01 – Plataforma
+- **RNF01 — Plataforma:** utilizar .NET 10.
+- **RNF02 — Linguagem:** utilizar C#.
+- **RNF03 — Persistência:** utilizar SQLite com Entity Framework Core.
+- **RNF04 — Testabilidade:** possuir testes automatizados das principais operações.
+- **RNF05 — Versionamento:** manter o código versionado com Git e hospedado no GitHub.
+- **RNF06 — Documentação:** fornecer instruções para instalação, execução e testes.
+- **RNF07 — Conteinerização:** disponibilizar configuração de execução por Docker e Docker Compose.
 
-A aplicação deve utilizar .NET 10.
+## 7. Regras de negócio
 
-### RNF02 – Linguagem
-
-A aplicação deve ser desenvolvida utilizando C#.
-
-### RNF03 – Persistência
-
-Os dados devem ser armazenados utilizando SQLite.
-
-### RNF04 – Testabilidade
-
-As principais operações da aplicação devem possuir testes automatizados.
-
-### RNF05 – Versionamento
-
-O código deve ser versionado utilizando Git e hospedado no GitHub.
-
-### RNF06 – Documentação
-
-O projeto deve possuir documentação suficiente para explicar sua instalação, execução e estrutura.
-
-## 7. Regras de Negócio
-
-### RN01 – Identificação
-
-Cada tarefa deve possuir um identificador único.
-
-### RN02 – Estado inicial
-
-Uma nova tarefa deve ser criada como não concluída.
-
-### RN03 – Conclusão
-
-Uma tarefa pode ter seu estado alterado para concluída por meio da operação de conclusão.
-
-### RN04 – Consulta
-
-A consulta por identificador deve retornar a tarefa quando ela existir.
-
-### RN05 – Tarefa inexistente
-
-Caso o identificador informado não corresponda a uma tarefa cadastrada, a API deve retornar HTTP 404.
+- **RN01 — Identificação:** cada tarefa possui um identificador único gerado pela persistência.
+- **RN02 — Estado inicial:** uma tarefa recém-criada é definida como não concluída.
+- **RN03 — Conclusão:** a operação de conclusão altera o campo `Concluida` para `true`.
+- **RN04 — Validação do título:** títulos vazios ou compostos apenas por espaços são rejeitados na criação e atualização.
+- **RN05 — Tarefa inexistente:** operações sobre identificadores sem correspondência retornam HTTP 404.
 
 ## 8. Modelo de dados
 
-A entidade principal do sistema é `Tarefa`.
-
-### Atributos
+A entidade principal é `Tarefa`, localizada em `TaskManager.API/Models/Tarefa.cs`.
 
 | Campo | Tipo | Descrição |
 |---|---|---|
-| Id | int | Identificador da tarefa |
-| Titulo | string | Título da tarefa |
-| Descricao | string | Descrição da tarefa |
-| Concluida | bool | Indica se a tarefa foi concluída |
-| DataCriacao | DateTime | Data de criação da tarefa |
+| `Id` | `int` | Identificador da tarefa |
+| `Titulo` | `string` | Título da tarefa |
+| `Descricao` | `string` | Descrição da tarefa |
+| `Concluida` | `bool` | Indica se a tarefa foi concluída |
+| `DataCriacao` | `DateTime` | Data e hora de criação |
 
-## 9. Decomposição em unidades
+Na operação de criação, a aplicação define `Concluida` como `false` e atribui `DateTime.UtcNow` a `DataCriacao`.
 
-O projeto foi dividido em unidades com responsabilidades específicas.
+## 9. Arquitetura e componentes
+
+O projeto utiliza uma arquitetura simples, com separação entre API, modelo, acesso a dados e testes automatizados.
 
 ### Model
 
-Responsável pela representação dos dados da tarefa.
+Arquivo: `TaskManager.API/Models/Tarefa.cs`
 
-Arquivo:
+Representa os dados de uma tarefa.
 
-```text
-TaskManager.API/Models/Tarefa.cs
-
-```text
 ### Data
 
-Responsável pelo acesso e persistência dos dados utilizando Entity Framework Core e SQLite.
+Arquivo: `TaskManager.API/Data/AppDbContext.cs`
 
-Arquivo:
-
-TaskManager.API/Data/AppDbContext.cs
-
-O AppDbContext representa o contexto do banco de dados e disponibiliza o conjunto de tarefas para operações de consulta, inclusão, atualização e exclusão.
+Define o contexto do Entity Framework Core e disponibiliza o conjunto de tarefas por meio de `DbSet<Tarefa>`.
 
 ### Controller
 
-Responsável por disponibilizar os endpoints da API REST e executar as operações relacionadas às tarefas.
+Arquivo: `TaskManager.API/Controllers/TarefasController.cs`
 
-Arquivo:
+Recebe as requisições HTTP e executa as operações de gerenciamento de tarefas.
 
-TaskManager.API/Controllers/TarefasController.cs
+### Inicialização
 
-O controller possui as operações de criação, listagem, consulta por identificador, atualização, conclusão e exclusão de tarefas.
+Arquivo: `TaskManager.API/Program.cs`
 
-### Testes
+Configura os controllers, o Entity Framework Core, o SQLite e o OpenAPI. Durante a inicialização, executa `Database.Migrate()` para aplicar as migrations pendentes.
 
-Responsável pela validação automatizada das principais funcionalidades da aplicação.
-
-Arquivos:
-
-TaskManager.Tests/TarefasControllerTests.cs
-TaskManager.Tests/TestDbContextFactory.cs
-
-Os testes utilizam xUnit e um contexto de banco de dados configurado para os testes. Dessa forma, é possível validar as principais operações do controller de forma independente do banco de dados utilizado pela aplicação.
+O mapeamento OpenAPI é habilitado quando a aplicação está no ambiente de desenvolvimento.
 
 ### Migrations
 
-Responsável pelo controle da estrutura do banco de dados por meio das migrações do Entity Framework Core.
+Diretório: `TaskManager.API/Migrations/`
 
-Diretório:
+Contém as migrações do Entity Framework Core utilizadas para controlar a estrutura do banco de dados.
 
-TaskManager.API/Migrations/
+### Testes
 
-As migrations registram as alterações da estrutura do banco de dados e permitem a criação e atualização das tabelas utilizadas pela aplicação.
+Diretório: `TaskManager.Tests/`
 
----
+Contém os testes automatizados e a fábrica de contexto utilizada para preparar o ambiente de teste.
 
-## 10. API e contratos
+## 10. API e contratos HTTP
 
-A aplicação disponibiliza uma API REST para realizar as operações de gerenciamento de tarefas.
+A rota base do controller é `/api/tarefas`.
 
 ### Criar tarefa
 
-**Método:** POST
-
-**Endpoint:** `/api/tarefas`
-
-**Entrada:**
+- **Método:** `POST`
+- **Endpoint:** `/api/tarefas`
+- **Entrada:**
 
 ```json
 {
   "titulo": "Estudar C#",
   "descricao": "Revisar conceitos de C# e .NET"
 }
+```
 
-**Resposta esperada:**
+- **Sucesso:** HTTP 201 — Created.
+- **Validação:** HTTP 400 — Bad Request quando o título estiver vazio.
 
-HTTP 201 – Created.
-
-A resposta contém os dados da tarefa criada e seu identificador.
+A resposta de sucesso contém os dados da tarefa criada e a localização do recurso.
 
 ### Listar tarefas
 
-**Método:** GET
+- **Método:** `GET`
+- **Endpoint:** `/api/tarefas`
+- **Sucesso:** HTTP 200 — OK.
 
-**Endpoint:** `/api/tarefas`
-
-**Resposta esperada:**
-
-HTTP 200 – OK.
-
-Retorna as tarefas cadastradas no banco de dados.
+Retorna a lista de tarefas ordenada pelo identificador.
 
 ### Buscar tarefa por ID
 
-**Método:** GET
-
-**Endpoint:** `/api/tarefas/{id}`
-
-**Exemplo:** `/api/tarefas/1`
-
-**Resposta quando encontrada:**
-
-HTTP 200 – OK.
-
-Retorna os dados da tarefa solicitada.
-
-**Resposta quando não encontrada:**
-
-HTTP 404 – Not Found.
+- **Método:** `GET`
+- **Endpoint:** `/api/tarefas/{id}`
+- **Sucesso:** HTTP 200 — OK.
+- **Tarefa inexistente:** HTTP 404 — Not Found.
 
 ### Atualizar tarefa
 
-**Método:** PUT
-
-**Endpoint:** `/api/tarefas/{id}`
-
-**Entrada:**
+- **Método:** `PUT`
+- **Endpoint:** `/api/tarefas/{id}`
+- **Entrada:**
 
 ```json
 {
@@ -261,195 +203,198 @@ HTTP 404 – Not Found.
   "descricao": "Revisar conceitos de C# e .NET 10",
   "concluida": false
 }
+```
 
+- **Sucesso:** HTTP 200 — OK.
+- **Tarefa inexistente:** HTTP 404 — Not Found.
+- **Título vazio:** HTTP 400 — Bad Request.
 
-Ou seja, deve ficar:
-
-```markdown
-```json
-{
-  "titulo": "Estudar C# atualizado",
-  "descricao": "Revisar conceitos de C# e .NET 10",
-  "concluida": false
-}
-
-```markdown
-**Resposta esperada:**
-
-HTTP 200 – OK.
-
-Retorna os dados da tarefa atualizada.
+A implementação atualiza o título e a descrição da tarefa existente.
 
 ### Concluir tarefa
 
-**Método:** PUT
+- **Método:** `PATCH`
+- **Endpoint:** `/api/tarefas/{id}/concluir`
+- **Sucesso:** HTTP 200 — OK.
+- **Tarefa inexistente:** HTTP 404 — Not Found.
 
-**Endpoint:** `/api/tarefas/{id}/concluir`
-
-**Exemplo:** `/api/tarefas/1/concluir`
-
-**Resposta esperada:**
-
-HTTP 200 – OK.
-
-Retorna a tarefa com o campo `concluida` alterado para `true`.
+A operação define o campo `Concluida` como `true`.
 
 ### Excluir tarefa
 
-**Método:** DELETE
+- **Método:** `DELETE`
+- **Endpoint:** `/api/tarefas/{id}`
+- **Sucesso:** HTTP 204 — No Content.
+- **Tarefa inexistente:** HTTP 404 — Not Found.
 
-**Endpoint:** `/api/tarefas/{id}`
-
-**Exemplo:** `/api/tarefas/1`
-
-**Resposta esperada:**
-
-HTTP 204 – No Content.
-
-A tarefa é removida do banco de dados.
-
-### Tratamento de tarefa inexistente
-
-Para operações realizadas com um identificador que não corresponde a uma tarefa cadastrada, a API deve retornar:
-
-HTTP 404 – Not Found.
+A operação remove a tarefa da persistência.
 
 ## 11. Persistência de dados
 
-A aplicação utiliza o Entity Framework Core para realizar a comunicação com o banco de dados SQLite.
+A aplicação utiliza SQLite como banco de dados e Entity Framework Core como ORM.
 
-O contexto da aplicação é representado pela classe `AppDbContext`, responsável pelo acesso à entidade `Tarefa`.
+A configuração da conexão está em `TaskManager.API/appsettings.json`:
 
-Arquivo:
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=taskmanager.db"
+  }
+}
+```
+
+O contexto de dados é implementado em `TaskManager.API/Data/AppDbContext.cs`.
+
+A aplicação executa as migrations pendentes durante a inicialização.
+
+A conexão utiliza o nome relativo `taskmanager.db`. O caminho efetivo do arquivo depende do diretório de trabalho da aplicação e da configuração do ambiente.
+
+## 12. Docker e execução reproduzível
+
+O projeto possui um `Dockerfile` com duas etapas:
+
+1. **Build:** utiliza a imagem do SDK do .NET 10 para restaurar dependências e publicar a aplicação em modo Release.
+2. **Execução:** utiliza a imagem ASP.NET 10 para executar `TaskManager.API.dll`.
+
+O container expõe a porta `8080`.
+
+O arquivo `docker-compose.yml` define o serviço `taskmanager-api`, publica a porta `8080` do container na porta `8080` do host e declara o volume nomeado `taskmanager-data`, montado em `/app/data`.
+
+O serviço utiliza a variável `ASPNETCORE_ENVIRONMENT=Production`.
+
+**Observação:** a connection string atual utiliza `Data Source=taskmanager.db`, sem caminho explícito para `/app/data`. Portanto, a persistência do arquivo SQLite no volume nomeado precisa ser validada no ambiente de execução antes de ser considerada garantida.
+
+### Executar com Docker Compose
+
+Na raiz do repositório:
+
+```powershell
+docker compose up --build
+```
+
+A API fica disponível localmente em:
 
 ```text
-TaskManager.API/Data/AppDbContext.cs
+http://localhost:8080/api/tarefas
+```
 
-O AppDbContext é responsável por disponibilizar o acesso à tabela de tarefas por meio do Entity Framework Core.
+Para encerrar os containers, utilize `Ctrl + C` e, se necessário, execute:
 
-### Banco de dados
+```powershell
+docker compose down
+```
 
-O banco de dados utilizado é o SQLite, escolhido por sua simplicidade e adequação ao escopo acadêmico do projeto.
+## 13. Testes automatizados
 
-Arquivo do banco:
+Os testes utilizam xUnit e estão localizados em `TaskManager.Tests/TarefasControllerTests.cs`.
 
-```text
-TaskManager.API/taskmanager.db
+A classe `TaskManager.Tests/TestDbContextFactory.cs` auxilia na criação do contexto utilizado nos testes.
 
-12. Arquitetura da aplicação
+A suíte contém os seguintes casos:
 
-O projeto utiliza uma arquitetura simples, adequada ao escopo acadêmico, com separação entre modelo, persistência, controller e testes.
+| Operação | Teste |
+|---|---|
+| Criar | `Criar_DeveCriarTarefaComSucesso` |
+| Listar | `Listar_DeveRetornarTodasAsTarefas` |
+| Buscar existente | `BuscarPorId_DeveRetornarTarefaExistente` |
+| Buscar inexistente | `BuscarPorId_DeveRetornar404QuandoNaoEncontrar` |
+| Atualizar | `Atualizar_DeveAtualizarTarefaComSucesso` |
+| Atualizar inexistente | `Atualizar_DeveRetornar404QuandoTarefaNaoExistir` |
+| Concluir | `Concluir_DeveMarcarTarefaComoConcluida` |
+| Concluir inexistente | `Concluir_DeveRetornar404QuandoTarefaNaoExistir` |
+| Excluir | `Excluir_DeveExcluirTarefaComSucesso` |
+| Excluir inexistente | `Excluir_DeveRetornar404QuandoTarefaNaoExistir` |
 
-TaskManager/
-│
-├── TaskManager.API/
-│   ├── Controllers/
-│   │   └── TarefasController.cs
-│   ├── Data/
-│   │   └── AppDbContext.cs
-│   ├── Migrations/
-│   ├── Models/
-│   │   └── Tarefa.cs
-│   ├── Program.cs
-│   └── TaskManager.API.csproj
-│
-├── TaskManager.Tests/
-│   ├── TarefasControllerTests.cs
-│   ├── TestDbContextFactory.cs
-│   └── TaskManager.Tests.csproj
-│
-├── TaskManager.slnx
-└── README.md
+A última execução registrada apresentou:
 
-O fluxo básico da aplicação é:
+- **Total:** 10 testes;
+- **Aprovados:** 10;
+- **Falhas:** 0;
+- **Ignorados:** 0.
 
-Cliente
-   ↓
-TarefasController
-   ↓
-AppDbContext
-   ↓
-Entity Framework Core
-   ↓
-SQLite
+Para repetir os testes no ambiente local:
 
-O controller recebe as requisições HTTP, executa as operações necessárias por meio do contexto de dados e retorna a resposta correspondente.
+```powershell
+dotnet test --logger "console;verbosity=normal"
+```
 
-13. Testes automatizados
+## 14. Cobertura de testes
 
-Os testes automatizados foram desenvolvidos utilizando xUnit e estão localizados em:
+A cobertura pode ser coletada utilizando o coletor XPlat Code Coverage:
 
-TaskManager.Tests/TarefasControllerTests.cs
-
-A classe TestDbContextFactory é utilizada para criar o contexto necessário para os testes:
-
-TaskManager.Tests/TestDbContextFactory.cs
-
-Foram implementados testes para as principais operações da aplicação:
-
-Operação	Teste
-Criar	Criar_DeveCriarTarefaComSucesso
-Listar	Listar_DeveRetornarTodasAsTarefas
-Buscar	BuscarPorId_DeveRetornarTarefaExistente
-Buscar inexistente	BuscarPorId_DeveRetornar404QuandoNaoEncontrar
-Atualizar	Atualizar_DeveAtualizarTarefaComSucesso
-Atualizar inexistente	Atualizar_DeveRetornar404QuandoTarefaNaoExistir
-Concluir	Concluir_DeveMarcarTarefaComoConcluida
-Concluir inexistente	Concluir_DeveRetornar404QuandoTarefaNaoExistir
-Excluir	Excluir_DeveExcluirTarefaComSucesso
-Excluir inexistente	Excluir_DeveRetornar404QuandoTarefaNaoExistir
-
-A última execução da suíte apresentou:
-
-Total: 10
-Falhou: 0
-Bem-sucedido: 10
-Ignorado: 0
-
-Portanto, todos os testes implementados foram executados com sucesso.
-
-14. Cobertura e execução
-
-A cobertura de testes foi coletada utilizando o recurso XPlat Code Coverage:
-
+```powershell
 dotnet test --collect:"XPlat Code Coverage"
+```
 
-O comando gerou o arquivo:
+O comando gera um arquivo de cobertura no diretório de resultados de teste, normalmente dentro de `TestResults`.
 
-coverage.cobertura.xml
+A cobertura pode ser utilizada para identificar quais partes do código foram exercitadas pelos testes.
 
-A partir desse arquivo foi gerado um relatório HTML utilizando o ReportGenerator.
+O percentual de cobertura deve ser registrado a partir do relatório efetivamente gerado. A quantidade de testes aprovados, isoladamente, não representa o percentual de cobertura do código.
 
-A cobertura foi utilizada como evidência complementar da execução dos testes e para identificar quais partes do código foram exercitadas pela suíte automatizada.
+## 15. Execução local
 
-Para executar o projeto:
+Com o SDK do .NET 10 instalado, os comandos básicos são:
 
+Restaurar as dependências:
+
+```powershell
 dotnet restore
+```
+
+Compilar a solução:
+
+```powershell
 dotnet build
-dotnet run --project .\TaskManager.API
+```
 
-Para executar os testes:
+Executar os testes:
 
+```powershell
 dotnet test
-15. Versionamento, decisões e limitações
+```
 
-O projeto utiliza Git para controle de versão e GitHub para hospedagem do código.
+Executar a API:
 
-Repositório:
+```powershell
+dotnet run --project .\TaskManager.API
+```
+
+A URL e a porta efetivas da execução local dependem das configurações de inicialização do projeto.
+
+## 16. Versionamento e release
+
+O código-fonte é hospedado no GitHub:
 
 https://github.com/vitornog1/TaskManager
 
-A implementação foi realizada individualmente e adaptada ao contexto acadêmico da atividade.
+A versão `v1.0.0` foi publicada como release oficial:
+
+https://github.com/vitornog1/TaskManager/releases/tag/v1.0.0
+
+O projeto utiliza Git para controle de versão e GitHub para hospedagem do código e das releases.
+
+O desenvolvimento foi realizado individualmente, com adaptação dos requisitos originalmente voltados ao trabalho em equipe.
+
+## 17. Decisões técnicas e limitações
 
 As principais decisões técnicas foram:
 
-Utilização de C# e .NET 10;
-Utilização de ASP.NET Core para criação da API REST;
-Utilização de Entity Framework Core;
-Utilização de SQLite para persistência;
-Utilização de xUnit para testes automatizados;
-Utilização de Git e GitHub para versionamento.
+- Utilização de C# e .NET 10;
+- Utilização de ASP.NET Core Web API;
+- Separação entre controller, modelo e contexto de dados;
+- Utilização de Entity Framework Core;
+- Utilização de SQLite;
+- Utilização de xUnit para testes automatizados;
+- Utilização de Docker e Docker Compose;
+- Utilização de Git e GitHub para versionamento.
 
-O projeto possui escopo reduzido e não contempla autenticação, controle de permissões, interface web, aplicativo mobile, notificações ou integrações externas.
+As limitações do sistema incluem a ausência de autenticação, controle de permissões, interface web, aplicativo mobile, notificações e integrações externas.
 
-Essas limitações são intencionais e mantêm o projeto compatível com o objetivo da entrega acadêmica individual.
+O escopo reduzido é compatível com a finalidade acadêmica do projeto.
+
+## 18. Considerações finais
+
+O TaskManager implementa operações básicas de gerenciamento de tarefas por meio de uma API REST, com persistência em SQLite, migrations do Entity Framework Core, testes automatizados e configuração de execução em Docker.
+
+Esta especificação descreve a estrutura e o comportamento identificados no código-fonte e nas configurações do projeto. Os resultados de testes, cobertura e execução devem ser atualizados quando novas validações forem realizadas.
